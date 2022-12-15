@@ -52,4 +52,39 @@ sudo apt-get update
 ```
 sudo apt-get install helm
 ```
+## Example aws eks
 
+```
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: testDeepchainTracker
+  region: ap-south-1
+
+nodeGroups:
+  - name: ng-1
+    instanceType: t3.micro
+    desiredCapacity: 2
+    volumeSize: 15
+    ssh:
+      allow: true
+      
+  ```
+  ## some command
+  ```
+ create_cluster:
+	eksctl create cluster -f cluster.yaml
+
+delete_cluster:
+	eksctl delete cluster -f cluster.yaml
+
+describe_cluster:
+	eksctl utils describe-stacks --region=us-east-2 --cluster=robin-personal-cluster
+
+aws_identity:
+	aws sts get-caller-identity
+
+set_context:
+	eksctl utils write-kubeconfig --cluster=robin-personal-cluster --set-kubeconfig-context=true
+```

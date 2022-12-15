@@ -88,3 +88,82 @@ aws_identity:
 set_context:
 	eksctl utils write-kubeconfig --cluster=testDeepchainTracker --set-kubeconfig-context=true
 ```
+## Example of loadbalancer application
+```
+# ---
+# apiVersion: v1
+# kind: Namespace
+# metadata:
+#   name: internal-tracker
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tracker
+  # namespace: internal-tracker
+spec:
+  selector:
+    app: tracker
+  ports:
+    - port: 80
+      targetPort: 3000
+      nodePort: 30005
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tracker
+  # namespace: internal-tracker
+
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: tracker
+  template:
+    metadata:
+      labels:
+        app: tracker
+    spec:
+      containers:
+        - name: tracker
+          image: shihab24/testapp:latest
+#          restartPolicy: Never
+          ports:
+            - containerPort: 3000
+          env:
+            - name: TZ
+              value: Asia/Dhaka
+          imagePullPolicy: Always
+#       restartPolicy: Never
+      # imagePullSecrets:
+      # - name: deepchain
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: tracker
+  # namespace: internal-tracker
+
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name:  tracker
+  minReplicas: 1
+  maxReplicas: 2
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 75
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: AverageValue
+        averageValue: 400Mi
+```

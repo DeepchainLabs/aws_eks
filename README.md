@@ -71,7 +71,7 @@ nodeGroups:
       allow: true
       
   ```
-  ## some command
+  ## Some command
   ```
  create_cluster:
 	eksctl create cluster -f cluster.yaml

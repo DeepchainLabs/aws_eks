@@ -26,7 +26,7 @@ sudo mv /tmp/eksctl /usr/local/bin
 eksctl version
 ````
 
-## Install using other package management
+## Install kubectl
 
 If you are on Ubuntu or another Linux distribution that supports the snap package manager, kubectl is available as a snap application.
 ```

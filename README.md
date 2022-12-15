@@ -107,7 +107,7 @@ spec:
   ports:
     - port: 80
       targetPort: 3000
-      nodePort: 30005
+ #     nodePort: 30005
   type: LoadBalancer
 ---
 apiVersion: apps/v1

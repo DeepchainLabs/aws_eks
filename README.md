@@ -167,8 +167,18 @@ spec:
         type: AverageValue
         averageValue: 400Mi
 ```
-* create this example name file name ``` app.yml ```
+* create this example name file name ``` app.yml ``` 
+
 ``` nano app.yml #create and edit file ```
-``` kubectl apply -f app.yml  # run this application ```
+
+``` 
+kubectl apply -f app.yml  # run this application 
+kubectl get svc # get all services
+kubectl get pods # get all pods
+kubectl get deployment # get all deployment
+kubectl get hpa # get autoscalling
+kubectl get all # get all deployment , autoscalling, services, pods
+```
+
 
 

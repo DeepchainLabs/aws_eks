@@ -167,3 +167,8 @@ spec:
         type: AverageValue
         averageValue: 400Mi
 ```
+* create this example name file name ``` app.yml ```
+``` nano app.yml #create and edit file ```
+``` kubectl apply -f app.yml  # run this application ```
+
+
